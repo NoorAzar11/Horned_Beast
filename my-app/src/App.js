@@ -5,10 +5,10 @@ import Main from './components/main';
 import Data from './components/Imagedata';
 import SelectedBeast from './components/SelectedBeast';
 import AddedForm from './components/Form';
-import Filter from './components/Filter';
+// import Filter from './components/Filter';
 
 class App extends React.Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -16,8 +16,9 @@ class App extends React.Component {
       photo: Data,
       showing: false,
       data2: {},
-      filterForm:Data,
+      filterForm: Data,
       numbersH: '',
+      hornsNum:0,
     };
   }
   show = (title) => {
@@ -34,16 +35,42 @@ class App extends React.Component {
     });
   }
 
-  
-  handleModelForForm = (e) => {
+  filData = (event) => {
+    event.preventDefault();
+    let data3 = Data;
+    let option = Number(event.target.value);
 
     this.setState({
-     filterForm:e
- 
+      hornsNum : option,
     })
- 
-   }
- 
+    console.log(option);
+    console.log(this.state.hornsNum);
+    if (option >= 1) {
+
+      data3 = Data.filter(element => {
+        return (Number(element.horns) === option);
+      });
+
+      this.props.mystate(data3);
+      console.log(data3);
+
+
+    } else {
+      this.props.mystate(Data);
+
+    }
+
+  }
+
+  // formModal = (event) => {
+
+  //   this.setState({
+  //    filterForm:event
+
+  //   })
+
+  //  }
+
   // result = (event) => { //to filter the options
   //   event.preventDefault(event);
   //   if (this.state.numbersH !== 'rest') {
@@ -63,9 +90,8 @@ class App extends React.Component {
 
       <div className='container'>
         <Header />
-        <AddedForm
-           mystate={this.handleModelForForm}  />
-          <Filter filterForm={this.state.filterForm}/>
+        <AddedForm added={this.filData} />
+        {/* <Filter filterForm={this.state.filterForm}/> */}
         <Main photo={this.state.photo} show={this.show} Data={this.state.Data} />
         <SelectedBeast showing={this.state.showing} data2={this.state.data2} close={this.close} />
         <Footer />
