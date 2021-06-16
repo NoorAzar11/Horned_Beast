@@ -5,17 +5,13 @@ import CardColumns from 'react-bootstrap/CardColumns';
 
 class Main extends React.Component {
     constructor(props){
-        super(props);
-        this.state={
-            photo:Data,
-
-        };
+        super(props);     
     }
     render(){
         return(
             <CardColumns>                
          {
-             this.props.Data.map(item => {
+             this.props.photo.map(item => {
 
             
                return(
