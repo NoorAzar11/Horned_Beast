@@ -18,7 +18,7 @@ class App extends React.Component {
       data2: {},
       filterForm: Data,
       numbersH: '',
-      hornsNum:0,
+      hornsNum: 0,
     };
   }
   show = (title) => {
@@ -34,69 +34,46 @@ class App extends React.Component {
       // data2: {}
     });
   }
+  
+  fillData=(val)=>{
+    console.log(val.target.value);
+    let data3=(val.target.value);
+    let fillHB =Data.filter(item => {
+      
+    if (item.horns == data3) {
+      return item
+    } else if (data3 == 0)
 
-  filData = (event) => {
-    event.preventDefault();
-    let data3 = Data;
-    let option = Number(event.target.value);
-
-    this.setState({
-      hornsNum : option,
-    })
-    console.log(option);
-    console.log(this.state.hornsNum);
-    if (option >= 1) {
-
-      data3 = Data.filter(element => {
-        return (Number(element.horns) === option);
-      });
-
-      this.props.mystate(data3);
-      console.log(data3);
+      return item
+  });
+  console.log(fillHB);
+  this.setState({
+    photo: fillHB
+  })
+}
 
 
-    } else {
-      this.props.mystate(Data);
+render() {
+  return (
 
-    }
-
-  }
-
-  // formModal = (event) => {
-
-  //   this.setState({
-  //    filterForm:event
-
-  //   })
-
-  //  }
-
-  // result = (event) => { //to filter the options
-  //   event.preventDefault(event);
-  //   if (this.state.numbersH !== 'rest') {
-  //     this.setState({
-  //       photo: Data.filter(animal => animal.horns === Number(this.state.numbersH))
-  //     });
-  //   }
-  //   else {
-  //     this.setState({
-  //       photo: Data.filter(animal => animal.horns > 0)
-  //     });
-  //   }
-  // }
-  // updateResult = horns => this.setState({ numbersH: horns.target.value }); //to update data
-  render() {
-    return (
-
-      <div className='container'>
-        <Header />
-        <AddedForm added={this.filData} />
-        {/* <Filter filterForm={this.state.filterForm}/> */}
-        <Main photo={this.state.photo} show={this.show} Data={this.state.Data} />
-        <SelectedBeast showing={this.state.showing} data2={this.state.data2} close={this.close} />
-        <Footer />
-      </div>
-    );
-  }
+    <div className='container'>
+      <Header />
+      <AddedForm added={this.fillData} />
+      {/* <Filter filterForm={this.state.filterForm}/> */}
+      <Main photo={this.state.photo} show={this.show}  />
+      <SelectedBeast showing={this.state.showing} data2={this.state.data2} close={this.close} />
+      <Footer />
+    </div>
+  );
+}
 }
 export default App;
+
+
+
+
+
+
+
+
+
